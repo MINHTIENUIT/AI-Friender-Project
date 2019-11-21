@@ -111,9 +111,9 @@ public class LoginActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        Toast.makeText(LoginActivity.this, "Signed in firebase twitter successful", Toast.LENGTH_LONG).show();
+//                        Toast.makeText(LoginActivity.this, "Signed in firebase twitter successful", Toast.LENGTH_LONG).show();
                         if (!task.isSuccessful()){
-                            Toast.makeText(LoginActivity.this,"Auth firebase twitter failed", Toast.LENGTH_LONG).show();
+//                            Toast.makeText(LoginActivity.this,"Auth firebase twitter failed", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
