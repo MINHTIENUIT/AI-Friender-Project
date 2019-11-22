@@ -1,4 +1,6 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="button_padding">20dp</dimen>
+    <dimen name="padding">20dp</dimen>
+    <dimen name="margin">20dp</dimen>
+    <dimen name="slide_up_panel_height">200dp</dimen>
 </resources>
