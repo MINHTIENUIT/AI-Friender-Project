@@ -6,6 +6,10 @@ import android.os.Bundle;
 import com.avnhome.aifriender.Fragments.ChartFragment;
 import com.avnhome.aifriender.Fragments.DescriptionChartFragment;
 import com.avnhome.aifriender.Fragments.DescriptionUserFragment;
+import com.avnhome.aifriender.IBMFriender.IBMFrienderApiClient;
+import com.avnhome.aifriender.Model.PersonalityOfChart;
+import com.avnhome.aifriender.Model.User;
+import com.avnhome.aifriender.Model.UserTwitter;
 import com.avnhome.aifriender.R;
 import com.avnhome.aifriender.Twitter.TwitterManager;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,6 +29,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static com.avnhome.aifriender.IBMFriender.IBMFrienderApiClient.getIBMService;
 
 public class MainActivity extends AppCompatActivity implements SlidingUpPanelLayout.PanelSlideListener, View.OnClickListener {
     private Button logoutBtn;
@@ -132,6 +145,8 @@ public class MainActivity extends AppCompatActivity implements SlidingUpPanelLay
         FirebaseUser currentUser = auth.getCurrentUser();
         if (currentUser == null){
             updateLoginUI();
+        }else{
+            TestAPI();
         }
     }
 
@@ -178,5 +193,22 @@ public class MainActivity extends AppCompatActivity implements SlidingUpPanelLay
     @Override
     public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState, SlidingUpPanelLayout.PanelState newState) {
         Log.i("TIEN", "onPanelStateChanged " + newState);
+    }
+
+    private void TestAPI(){
+        Call<PersonalityOfChart> call = IBMFrienderApiClient.getIBMService().getPersonality("@realDonaldTrump", "1574483911626");
+        call.enqueue(new Callback<PersonalityOfChart>() {
+            @Override
+            public void onResponse(Call<PersonalityOfChart> call, Response<PersonalityOfChart> response) {
+                if (response.body() != null){
+                    Log.e("TIEN", response.body().toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PersonalityOfChart> call, Throwable t) {
+                Log.e("TIEN", "Failed: " + t.toString());
+            }
+        });
     }
 }
