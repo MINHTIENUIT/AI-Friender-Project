@@ -22,6 +22,17 @@ public class PersonalityOfChart {
 	@SerializedName("big5_extraversion")
 	protected double extraversion;
 
+	public PersonalityOfChart() {
+	}
+
+	public PersonalityOfChart(double openness, double agreeableness, double neuroticism, double conscientiousness, double extraversion) {
+		this.openness = openness;
+		this.agreeableness = agreeableness;
+		this.neuroticism = neuroticism;
+		this.conscientiousness = conscientiousness;
+		this.extraversion = extraversion;
+	}
+
 	public double getOpenness() {
 		return openness;
 	}

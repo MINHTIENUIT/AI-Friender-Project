@@ -21,7 +21,7 @@ public interface IBMService {
     String IBM_SERVICE_URL = "https://service.avnhome.com";
 
     @GET("/system1/user/bytwitterid")
-    Call<List<User>> getUser(@Query("id") String id);
+    Call<List<User>> getUser(@Query("id") String twitterId);
 
     @POST("/system1/user")
     Call<ErrorCode> createUser(@Body User user);

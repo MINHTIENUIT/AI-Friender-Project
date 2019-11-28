@@ -6,6 +6,7 @@ import android.os.Bundle;
 import com.avnhome.aifriender.Fragments.ChartFragment;
 import com.avnhome.aifriender.Fragments.DescriptionChartFragment;
 import com.avnhome.aifriender.Fragments.DescriptionUserFragment;
+import com.avnhome.aifriender.IBMFriender.FrienderManager;
 import com.avnhome.aifriender.IBMFriender.IBMFrienderApiClient;
 import com.avnhome.aifriender.Model.PersonalityOfChart;
 import com.avnhome.aifriender.Model.User;
@@ -51,6 +52,8 @@ public class MainActivity extends AppCompatActivity implements SlidingUpPanelLay
     private ChartFragment chartFragment;
     private DescriptionChartFragment descriptionChartFragment;
     private DescriptionUserFragment descriptionUserFragment;
+
+    private User user;
 
 
 //    private final WorkManager workManager = WorkManager.getInstance();
@@ -187,28 +190,23 @@ public class MainActivity extends AppCompatActivity implements SlidingUpPanelLay
 
     @Override
     public void onPanelSlide(View panel, float slideOffset) {
-        Log.i("TIEN", "onPanelSlide, offset " + slideOffset);
     }
 
     @Override
     public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState, SlidingUpPanelLayout.PanelState newState) {
-        Log.i("TIEN", "onPanelStateChanged " + newState);
+        if (user != null){
+            Log.e("TIEN", "TestAPI: " + user.toString());
+        }else {
+            Log.e("TIEN", "TestAPI: NULL OBJECT");
+        }
     }
 
     private void TestAPI(){
-        Call<PersonalityOfChart> call = IBMFrienderApiClient.getIBMService().getPersonality("@realDonaldTrump", "1574483911626");
-        call.enqueue(new Callback<PersonalityOfChart>() {
-            @Override
-            public void onResponse(Call<PersonalityOfChart> call, Response<PersonalityOfChart> response) {
-                if (response.body() != null){
-                    Log.e("TIEN", response.body().toString());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<PersonalityOfChart> call, Throwable t) {
-                Log.e("TIEN", "Failed: " + t.toString());
-            }
-        });
+       user = FrienderManager.getInstance(sessionManager.getActiveSession()).getUser();
+        if (user != null){
+            Log.e("TIEN", "TestAPI: " + user.toString());
+        }else {
+            Log.e("TIEN", "TestAPI: NULL OBJECT");
+        }
     }
 }
