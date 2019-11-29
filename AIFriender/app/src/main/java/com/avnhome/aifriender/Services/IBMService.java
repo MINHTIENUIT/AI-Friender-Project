@@ -7,6 +7,8 @@ import com.avnhome.aifriender.Model.UserTwitter;
 
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.Single;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -21,7 +23,7 @@ public interface IBMService {
     String IBM_SERVICE_URL = "https://service.avnhome.com";
 
     @GET("/system1/user/bytwitterid")
-    Call<List<User>> getUser(@Query("id") String twitterId);
+    Single<List<User>> getUser(@Query("id") String twitterId);
 
     @POST("/system1/user")
     Call<ErrorCode> createUser(@Body User user);

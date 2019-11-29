@@ -42,7 +42,7 @@ public class GetUserCallback implements Callback<List<User>> {
                 @Override
                 public void onResponse(Call<ErrorCode> call, Response<ErrorCode> response) {
                     if (response.isSuccessful()){
-                        FrienderManager.getUser(session);
+//                        FrienderManager.getUser(session);
                         Log.e("TIEN", "onResponse: CreateUser Success");
                     }else{
                         Log.e("TIEN", "onResponse: CreateUser: Failed");

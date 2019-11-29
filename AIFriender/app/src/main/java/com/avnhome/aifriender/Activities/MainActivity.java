@@ -107,6 +107,13 @@ public class MainActivity extends AppCompatActivity implements SlidingUpPanelLay
 //                        .setAction("Action", null).show();
 //            }
 //        });
+        TestAPI();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        TestAPI();
     }
 
     @Override
@@ -148,9 +155,19 @@ public class MainActivity extends AppCompatActivity implements SlidingUpPanelLay
         FirebaseUser currentUser = auth.getCurrentUser();
         if (currentUser == null){
             updateLoginUI();
-        }else{
-            TestAPI();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        TestAPI();
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        TestAPI();
+        super.onPause();
     }
 
     @Override
@@ -196,17 +213,15 @@ public class MainActivity extends AppCompatActivity implements SlidingUpPanelLay
     public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState, SlidingUpPanelLayout.PanelState newState) {
         if (user != null){
             Log.e("TIEN", "TestAPI: " + user.toString());
+            TestAPI();
         }else {
             Log.e("TIEN", "TestAPI: NULL OBJECT");
+            TestAPI();
         }
     }
 
     private void TestAPI(){
-       user = FrienderManager.getInstance(sessionManager.getActiveSession()).getUser();
-        if (user != null){
-            Log.e("TIEN", "TestAPI: " + user.toString());
-        }else {
-            Log.e("TIEN", "TestAPI: NULL OBJECT");
-        }
+        user = FrienderManager.getUser(twitterSession);
+        System.out.println("TIEN: " + user.toString());
     }
 }
