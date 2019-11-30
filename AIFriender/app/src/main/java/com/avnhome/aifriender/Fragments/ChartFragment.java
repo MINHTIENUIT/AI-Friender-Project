@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.avnhome.aifriender.Model.PersonalityOfChart;
 import com.avnhome.aifriender.R;
 
 /**
@@ -19,12 +20,10 @@ import com.avnhome.aifriender.R;
 public class ChartFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String PERSONALITY_PARAM1 = "PERSONALITY";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private PersonalityOfChart personality;
 
 
     public ChartFragment() {
@@ -35,16 +34,14 @@ public class ChartFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * @param personality Parameter 1.
      * @return A new instance of fragment ChartFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ChartFragment newInstance(String param1, String param2) {
+    public static ChartFragment newInstance(PersonalityOfChart personality) {
         ChartFragment fragment = new ChartFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putSerializable(PERSONALITY_PARAM1, personality);
         fragment.setArguments(args);
         return fragment;
     }
@@ -53,8 +50,13 @@ public class ChartFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            personality = (PersonalityOfChart) getArguments().getSerializable(PERSONALITY_PARAM1);
+        }
+
+        if (personality != null){
+            System.out.println("FRAGMENT Chart: " + personality.toString());
+        } else {
+            System.out.println("FRAGMENT: can't pass user from MainActivity");
         }
     }
 

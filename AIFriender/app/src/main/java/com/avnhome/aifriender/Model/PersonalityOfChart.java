@@ -2,10 +2,12 @@ package com.avnhome.aifriender.Model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 import javax.annotation.Generated;
 
 @Generated("com.robohorse.robopojogenerator")
-public class PersonalityOfChart {
+public class PersonalityOfChart implements Serializable {
 
 	@SerializedName("big5_openness")
 	protected double openness;

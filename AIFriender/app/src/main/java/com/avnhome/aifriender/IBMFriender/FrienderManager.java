@@ -1,10 +1,10 @@
 package com.avnhome.aifriender.IBMFriender;
 
+import com.avnhome.aifriender.Interfaces.OnLoadedListener;
 import com.avnhome.aifriender.Model.User;
 import com.avnhome.aifriender.Services.IBMService;
 import com.twitter.sdk.android.core.TwitterSession;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.SingleObserver;
@@ -14,14 +14,12 @@ import io.reactivex.schedulers.Schedulers;
 
 public class FrienderManager{
 
-    private static List<User> userList = new ArrayList<>();
-
-    public static User getUser(TwitterSession session){
+    public static void getUser(TwitterSession session, final OnLoadedListener listener){
         IBMService service = IBMFrienderApiClient.getIBMService();
-        service.getUser("@realDonaldTrump")
+        service.getUser("@"+session.getUserName() + "12")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-              .subscribe(new SingleObserver<List<User>>() {
+                .subscribe(new SingleObserver<List<User>>() {
                   @Override
                   public void onSubscribe(Disposable d) {
 
@@ -29,19 +27,17 @@ public class FrienderManager{
 
                   @Override
                   public void onSuccess(List<User> users) {
-                        userList = new ArrayList<>(users);
-                      System.out.println("TIEN: success");
+                        if (!users.isEmpty()){
+                            listener.onComplete(users.get(0));
+                        }else{
+                            listener.onComplete(null);
+                        }
                   }
 
                   @Override
                   public void onError(Throwable e) {
-
+                        listener.onFailure(e);
                   }
               });
-        if (!userList.isEmpty()){
-            return userList.get(0);
-        }else {
-            return new User.UserBuilder(session.getUserName()).build();
-        }
     }
 }

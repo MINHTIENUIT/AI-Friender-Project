@@ -3,6 +3,15 @@
     <string name="action_settings">Settings</string>
     <string name="action_about">About us</string>
     <string name="add_friend_button">Add Friend</string>
+    <string name="find_friend_button">Find Friend</string>
+    <string name="sign_up_button">Sign Up</string>
+    <string name="logout_button">Logout</string>
+    <string name="text_introduce">Wellcome to\nAI Friender</string>
+    <string name="et_email">Email</string>
+    <string name="et_username">User Name</string>
+    <string name="et_birthday">Birthday</string>
+    <string name="et_twitter_id">Twitter ID</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

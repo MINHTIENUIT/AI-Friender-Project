@@ -3,4 +3,5 @@
     <dimen name="padding">20dp</dimen>
     <dimen name="margin">20dp</dimen>
     <dimen name="slide_up_panel_height">200dp</dimen>
+    <dimen name="radius_conner_button">20dp</dimen>
 </resources>

@@ -7,10 +7,8 @@ import com.avnhome.aifriender.Fragments.ChartFragment;
 import com.avnhome.aifriender.Fragments.DescriptionChartFragment;
 import com.avnhome.aifriender.Fragments.DescriptionUserFragment;
 import com.avnhome.aifriender.IBMFriender.FrienderManager;
-import com.avnhome.aifriender.IBMFriender.IBMFrienderApiClient;
-import com.avnhome.aifriender.Model.PersonalityOfChart;
+import com.avnhome.aifriender.Interfaces.OnLoadedListener;
 import com.avnhome.aifriender.Model.User;
-import com.avnhome.aifriender.Model.UserTwitter;
 import com.avnhome.aifriender.R;
 import com.avnhome.aifriender.Twitter.TwitterManager;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,16 +29,8 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-import static com.avnhome.aifriender.IBMFriender.IBMFrienderApiClient.getIBMService;
-
-public class MainActivity extends AppCompatActivity implements SlidingUpPanelLayout.PanelSlideListener, View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements SlidingUpPanelLayout.PanelSlideListener,
+        View.OnClickListener, OnLoadedListener {
     private Button logoutBtn;
     private FirebaseAuth auth;
     private SessionManager<TwitterSession> sessionManager;
@@ -54,12 +44,7 @@ public class MainActivity extends AppCompatActivity implements SlidingUpPanelLay
     private DescriptionUserFragment descriptionUserFragment;
 
     private User user;
-
-
-//    private final WorkManager workManager = WorkManager.getInstance();
-
     private int backButtonCount = 0;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,11 +59,6 @@ public class MainActivity extends AppCompatActivity implements SlidingUpPanelLay
         sessionManager = TwitterCore.getInstance().getSessionManager();
         twitterSession = sessionManager.getActiveSession();
         auth = FirebaseAuth.getInstance();
-
-        chartFragment = ChartFragment.newInstance("Test1", "Test2");;
-        descriptionChartFragment = DescriptionChartFragment.newInstance("Test1", "Test2");
-        descriptionUserFragment = DescriptionUserFragment.newInstance("Test1", "Test2");
-        loadChartFragment();
 
         findViewByIds();
 
@@ -107,13 +87,6 @@ public class MainActivity extends AppCompatActivity implements SlidingUpPanelLay
 //                        .setAction("Action", null).show();
 //            }
 //        });
-        TestAPI();
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        TestAPI();
     }
 
     @Override
@@ -155,18 +128,17 @@ public class MainActivity extends AppCompatActivity implements SlidingUpPanelLay
         FirebaseUser currentUser = auth.getCurrentUser();
         if (currentUser == null){
             updateLoginUI();
-        }
+        } else
+            FrienderManager.getUser(twitterSession,this);
     }
 
     @Override
     protected void onResume() {
-        TestAPI();
         super.onResume();
     }
 
     @Override
     protected void onPause() {
-        TestAPI();
         super.onPause();
     }
 
@@ -189,9 +161,9 @@ public class MainActivity extends AppCompatActivity implements SlidingUpPanelLay
     }
 
     public void loadChartFragment(){
-        chartFragment = ChartFragment.newInstance("Test1", "Test2");
-        descriptionChartFragment = DescriptionChartFragment.newInstance("Test1", "Test2");
-        descriptionUserFragment = DescriptionUserFragment.newInstance("Test1", "Test2");
+        chartFragment = ChartFragment.newInstance(user);
+        descriptionChartFragment = DescriptionChartFragment.newInstance(user);
+        descriptionUserFragment = DescriptionUserFragment.newInstance(user);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.content_chart_frg, chartFragment);
@@ -211,17 +183,24 @@ public class MainActivity extends AppCompatActivity implements SlidingUpPanelLay
 
     @Override
     public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState, SlidingUpPanelLayout.PanelState newState) {
-        if (user != null){
-            Log.e("TIEN", "TestAPI: " + user.toString());
-            TestAPI();
-        }else {
-            Log.e("TIEN", "TestAPI: NULL OBJECT");
-            TestAPI();
+
+    }
+
+    @Override
+    public void onComplete(User user) {
+        this.user = user;
+        if (user == null){
+            Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
+            startActivity(intent);
+            finish();
+        }else{
+            System.out.println(this.user.toString());
+            loadChartFragment();
         }
     }
 
-    private void TestAPI(){
-        user = FrienderManager.getUser(twitterSession);
-        System.out.println("TIEN: " + user.toString());
+    @Override
+    public void onFailure(Throwable t) {
+        System.out.println(t.getCause());
     }
 }

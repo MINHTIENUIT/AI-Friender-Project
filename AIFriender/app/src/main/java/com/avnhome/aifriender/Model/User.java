@@ -3,8 +3,10 @@ package com.avnhome.aifriender.Model;
 import javax.annotation.Generated;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 @Generated("com.robohorse.robopojogenerator")
-public class User extends PersonalityOfChart{
+public class User extends PersonalityOfChart implements Serializable {
 
 	@SerializedName("id")
 	private String id;
