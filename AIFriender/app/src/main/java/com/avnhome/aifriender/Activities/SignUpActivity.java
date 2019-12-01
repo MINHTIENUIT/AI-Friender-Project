@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.avnhome.aifriender.Fragments.SignUpUserFragment;
@@ -28,7 +29,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private int backButtonCount = 0;
 
     private Button signupBtn;
-    private Button logoutBtn;
+    private TextView logoutBtn;
 
     private SignUpUserFragment signUpFragment;
 
@@ -82,6 +83,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     private void signUp(){
         System.out.println(signUpFragment.getUser().toString());
+
     }
 
     private void updateLoginUI() {
@@ -93,7 +95,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private void findViewByIds(){
         signupBtn = findViewById(R.id.sign_up_btn);
         signupBtn.setOnClickListener(this);
-        logoutBtn = findViewById(R.id.logout_btn_sa);
+        logoutBtn = findViewById(R.id.logout_account_text_sa);
         logoutBtn.setOnClickListener(this);
     }
 
@@ -101,9 +103,12 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.sign_up_btn:
-                signUp();
+                signUpFragment.getValidator().validate();
+                if (signUpFragment.isValidateSuccess()){
+                    signUp();
+                }
                 break;
-            case R.id.logout_btn_sa:
+            case R.id.logout_account_text_sa:
                 logout();
                 break;
         }
