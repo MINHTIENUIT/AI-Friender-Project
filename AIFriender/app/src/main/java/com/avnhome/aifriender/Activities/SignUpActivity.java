@@ -12,6 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.avnhome.aifriender.Fragments.SignUpUserFragment;
+import com.avnhome.aifriender.IBMFriender.IBMFrienderApiClient;
+import com.avnhome.aifriender.Model.ErrorCode;
 import com.avnhome.aifriender.Model.User;
 import com.avnhome.aifriender.R;
 import com.avnhome.aifriender.Twitter.TwitterManager;
@@ -19,6 +21,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.twitter.sdk.android.core.SessionManager;
 import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterSession;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -82,8 +88,22 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void signUp(){
-        System.out.println(signUpFragment.getUser().toString());
+        Call<ErrorCode> call = IBMFrienderApiClient.getIBMService().createUser(signUpFragment.getUser());
+        call.enqueue(new Callback<ErrorCode>() {
+            @Override
+            public void onResponse(Call<ErrorCode> call, Response<ErrorCode> response) {
+                if (response.isSuccessful()){
+                    Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }
 
+            @Override
+            public void onFailure(Call<ErrorCode> call, Throwable t) {
+                Toast.makeText(SignUpActivity.this, "Create User Error", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void updateLoginUI() {

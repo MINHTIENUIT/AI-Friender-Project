@@ -41,7 +41,7 @@ public class User extends PersonalityOfChart implements Serializable {
 		this.age = age;
 		this.userName = userName;
 		this.email = email;
-		this.twitterId = twitterId;
+		this.twitterId = "@" + twitterId;
 	}
 
 	public String getId() {

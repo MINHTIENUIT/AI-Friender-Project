@@ -10,6 +10,7 @@ import com.avnhome.aifriender.IBMFriender.FrienderManager;
 import com.avnhome.aifriender.Interfaces.OnLoadedListener;
 import com.avnhome.aifriender.Model.User;
 import com.avnhome.aifriender.R;
+import com.avnhome.aifriender.Twitter.CustomTwitterApiClient;
 import com.avnhome.aifriender.Twitter.TwitterManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -28,6 +29,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.Toast;
+
+import java.io.IOException;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements SlidingUpPanelLayout.PanelSlideListener,
         View.OnClickListener, OnLoadedListener {

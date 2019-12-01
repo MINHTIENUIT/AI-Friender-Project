@@ -16,7 +16,7 @@ public class FrienderManager{
 
     public static void getUser(TwitterSession session, final OnLoadedListener listener){
         IBMService service = IBMFrienderApiClient.getIBMService();
-        service.getUser("@"+session.getUserName() + "12")
+        service.getUser("@"+session.getUserName())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<List<User>>() {
