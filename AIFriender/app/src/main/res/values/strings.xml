@@ -12,6 +12,13 @@
     <string name="et_username">User Name</string>
     <string name="et_birthday">Birthday</string>
     <string name="et_twitter_id">Twitter ID</string>
+    <string name="test_description">You can change those values by passing another ones in AvatarPlaceholder constructor or not directly by using IImageLoader class methods/constructors
+        \nAvatar background color is calculated using hashCode() method called on a given name String
+        \nDefault border width is 2dp and default border color is white.
+        \nPlaceholder letters are currently always white (in future user will be able to choose a different color).
+        \nIt is recommended to set your default placeholder String as short as possible (the best would be one letter).
+        \nTo report a specific problem or feature request, open a new issue on Github.
+    </string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

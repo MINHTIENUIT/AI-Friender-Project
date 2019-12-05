@@ -38,7 +38,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements SlidingUpPanelLayout.PanelSlideListener,
-        View.OnClickListener, OnLoadedListener {
+        View.OnClickListener, OnLoadedListener<User> {
     private Button logoutBtn;
     private FirebaseAuth auth;
     private SessionManager<TwitterSession> sessionManager;
@@ -202,13 +202,12 @@ public class MainActivity extends AppCompatActivity implements SlidingUpPanelLay
             startActivity(intent);
             finish();
         }else{
-            System.out.println(this.user.toString());
             loadChartFragment();
         }
     }
 
     @Override
     public void onFailure(Throwable t) {
-        System.out.println(t.getCause());
+        Log.w(getPackageName(), "onFailure: Load User", t);
     }
 }

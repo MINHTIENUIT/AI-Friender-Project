@@ -1,8 +1,6 @@
 package com.avnhome.aifriender.Interfaces;
 
-import com.avnhome.aifriender.Model.User;
-
-public interface OnLoadedListener {
-    void onComplete(User user);
+public interface OnLoadedListener<T> {
+    void onComplete(T t);
     void onFailure(Throwable t);
 }

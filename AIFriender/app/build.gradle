@@ -73,6 +73,10 @@ dependencies {
     implementation 'com.jakewharton:butterknife:8.8.1'
 //    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
+    //avatar view use picasso
+    implementation 'agency.tango.android:avatar-view:0.0.2'
+    implementation 'agency.tango.android:avatar-view-picasso:0.0.2'
+
 
 }
 

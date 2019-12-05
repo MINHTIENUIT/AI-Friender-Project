@@ -52,12 +52,6 @@ public class DescriptionChartFragment extends Fragment {
         if (getArguments() != null) {
             personality = (PersonalityOfChart) getArguments().getSerializable(PERSONALITY_PARAM1);
         }
-
-        if (personality != null){
-            System.out.println("FRAGMENT: " + personality.toString());
-        } else {
-            System.out.println("FRAGMENT: can't pass user from MainActivity");
-        }
     }
 
     @Override

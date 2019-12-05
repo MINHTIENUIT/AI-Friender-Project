@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.DescriptionUserFragment"
     android:background="@color/background">
 
@@ -18,13 +19,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_margin="@dimen/margin">
-                <ImageView
+                <agency.tango.android.avatarview.views.AvatarView
                     android:id="@+id/avatar_iv"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/tw__ic_logo_default"/>
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginEnd="10dp"
+                    app:av_border_color="@android:color/white"
+                    app:av_border_width="2dp"
+                    app:av_text_size_percentage="35"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -51,6 +53,24 @@
                         android:textColor="@color/tw__composer_white"
                         android:text="Birthday: "/>
                 </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
+                    android:textAlignment="center"
+                    android:text="About You"
+                    android:textSize="20sp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
+                    android:textAlignment="center"
+                    android:text="@string/test_description"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

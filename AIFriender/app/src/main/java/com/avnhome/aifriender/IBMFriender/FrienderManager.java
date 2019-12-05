@@ -30,6 +30,7 @@ public class FrienderManager{
                         if (!users.isEmpty()){
                             listener.onComplete(users.get(0));
                         }else{
+                            listener.onFailure(new Throwable("User dose not available"));
                             listener.onComplete(null);
                         }
                   }

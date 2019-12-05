@@ -53,7 +53,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         findViewByIds();
         User user = new User.UserBuilder(twitterSession.getUserName()).build();
-        System.out.println(user.toString());
 
         signUpFragment = SignUpUserFragment.newInstance(user);
         FragmentManager fragmentManager = getSupportFragmentManager();
