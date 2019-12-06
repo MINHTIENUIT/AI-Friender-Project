@@ -27,7 +27,7 @@ public class ChartFragment extends Fragment {
 
     private RadarChartView radarChartView;
     // TODO: Rename and change types of parameters
-    private PersonalityOfChart personality;
+    private User user;
 
 
     public ChartFragment() {
@@ -42,7 +42,7 @@ public class ChartFragment extends Fragment {
      * @return A new instance of fragment ChartFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ChartFragment newInstance(PersonalityOfChart personality) {
+    public static ChartFragment newInstance(User personality) {
         ChartFragment fragment = new ChartFragment();
         Bundle args = new Bundle();
         args.putSerializable(PERSONALITY_PARAM1, personality);
@@ -54,7 +54,7 @@ public class ChartFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            personality = (PersonalityOfChart) getArguments().getSerializable(PERSONALITY_PARAM1);
+            user = (User) getArguments().getSerializable(PERSONALITY_PARAM1);
         }
     }
 
@@ -70,12 +70,12 @@ public class ChartFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        PersonalityOfChart p1 = new PersonalityOfChart(50,40,30,20,10);
-        PersonalityOfChart p2 = new PersonalityOfChart(10,20,30,40,50);
+        PersonalityOfChart p1 = new PersonalityOfChart(80d/100,40d/100,30d/100,20d/100,40d/100);
+        PersonalityOfChart p2 = new PersonalityOfChart(40,20,30,40,50);
         User user1 = new User.UserBuilder("Jack").withPersonality(p1).build();
         User user2 = new User.UserBuilder("Alita").withPersonality(p2).build();
         try {
-            radarChartView.setUserForChart(user1,user2);
+            radarChartView.setUserForChart(user, user1);
             radarChartView.invalidate();
         } catch (Throwable throwable) {
             throwable.printStackTrace();

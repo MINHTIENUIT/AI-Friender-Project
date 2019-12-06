@@ -78,7 +78,7 @@ public class PersonalityOfChart implements Serializable {
 	}
 
 	public List<Double> getPersonalities(){
-		return Arrays.asList(openness,agreeableness,neuroticism,conscientiousness,extraversion);
+		return Arrays.asList(openness*100,agreeableness*100,neuroticism*100,conscientiousness*100,extraversion*100);
 	}
 
 	@Override

@@ -1,7 +1,11 @@
 package com.avnhome.aifriender.Views;
 
 import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
 import android.util.AttributeSet;
 
 import com.avnhome.aifriender.Model.User;
@@ -24,12 +28,15 @@ import java.util.List;
 public class RadarChartView extends RadarChart {
 
     private List<User> users = new ArrayList<>();
+    private TypedArray typedArray;
+
 
     public RadarChartView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        typedArray = context.obtainStyledAttributes(attrs, R.styleable.RadarChartView);
     }
 
-    public void setUserForChart(User mainUser, User subUser) throws Throwable {
+    public void setUserForChart(User mainUser, User subUser){
         if (mainUser != null)
             this.users.add(mainUser);
 
@@ -55,6 +62,7 @@ public class RadarChartView extends RadarChart {
         this.setWebLineWidth(1f);
         this.setWebColor(Color.LTGRAY);
         this.setWebLineWidthInner(1f);
+        this.setDrawWeb(true);
         this.setWebColorInner(Color.LTGRAY);
         this.setWebAlpha(100);
         this.setTouchEnabled(false);
@@ -64,22 +72,25 @@ public class RadarChartView extends RadarChart {
         xAxis.setTextSize(9f);
         xAxis.setYOffset(0f);
         xAxis.setXOffset(0f);
-//        xAxis.setValueFormatter(new ValueFormatter() {
-//
-//            private final String[] mActivities = new String[]{"Openness", "Agreeableness", "Neuroticism", "Conscientiousness", "Extraversion"};
-//
-//            @Override
-//            public String getFormattedValue(float value) {
-//                return mActivities[(int) value % mActivities.length];
-//            }
-//        });
+
+        xAxis.setValueFormatter(new ValueFormatter() {
+
+            private final String[] mActivities = new String[]{"Openness", "Agreeableness", "Neuroticism", "Conscientiousness", "Extraversion"};
+
+            @Override
+            public String getFormattedValue(float value) {
+                return mActivities[(int) value % mActivities.length];
+            }
+        });
+        xAxis.setDrawLabels(false);
+        xAxis.disableGridDashedLine();
         xAxis.setTextColor(Color.WHITE);
 
         YAxis yAxis = this.getYAxis();
         yAxis.setLabelCount(5, false);
         yAxis.setTextSize(9f);
         yAxis.setAxisMinimum(0f);
-        yAxis.setAxisMaximum(80f);
+        yAxis.setAxisMaximum(100f);
         yAxis.setDrawLabels(false);
 
         Legend l = this.getLegend();
@@ -105,8 +116,8 @@ public class RadarChartView extends RadarChart {
         }
 
         RadarDataSet set1 = new RadarDataSet(entries1, users.get(0).getTwitterId());
-        set1.setColor(Color.rgb(103, 110, 129));
-        set1.setFillColor(Color.rgb(103, 110, 129));
+        set1.setColor(typedArray.getColor(R.styleable.RadarChartView_RC_main_user_color, Color.rgb(103, 110, 129)));
+        set1.setFillColor(typedArray.getColor(R.styleable.RadarChartView_RC_main_user_fill_color, Color.rgb(103, 110, 129)));
         set1.setDrawFilled(true);
         set1.setFillAlpha(180);
         set1.setLineWidth(2f);
@@ -120,8 +131,8 @@ public class RadarChartView extends RadarChart {
                 entries2.add(new RadarEntry(new BigDecimal(per).floatValue()));
             }
             RadarDataSet set2 = new RadarDataSet(entries2, users.get(1).getTwitterId());
-            set2.setColor(Color.rgb(121, 162, 175));
-            set2.setFillColor(Color.rgb(121, 162, 175));
+            set2.setColor(typedArray.getColor(R.styleable.RadarChartView_RC_sub_user_color, Color.rgb(121, 162, 175)));
+            set2.setFillColor(typedArray.getColor(R.styleable.RadarChartView_RC_sub_user_fill_color, Color.rgb(121, 162, 175)));
             set2.setDrawFilled(true);
             set2.setFillAlpha(180);
             set2.setLineWidth(2f);
@@ -134,7 +145,7 @@ public class RadarChartView extends RadarChart {
         RadarData data = new RadarData(sets);
         data.setValueTextSize(8f);
         data.setDrawValues(false);
-        data.setValueTextColor(Color.WHITE);
+        data.setValueTextColor(typedArray.getColor(R.styleable.RadarChartView_RC_text_color, Color.WHITE));
 
         this.setData(data);
         this.invalidate();

@@ -73,6 +73,6 @@ public class DescriptionChartFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         descChartView.setPercents(personality.getPersonalities());
-        descChartView.setPercents(Arrays.asList(10d,20d,30d,40d,50d));
+//        descChartView.setPercents(Arrays.asList(10d,20d,30d,40d,50d));
     }
 }

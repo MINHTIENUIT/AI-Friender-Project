@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.ChartFragment">
 
 
@@ -20,7 +21,12 @@
         <com.avnhome.aifriender.Views.RadarChartView
             android:id="@+id/radar_char"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            app:RC_main_user_color="@color/main_color"
+            app:RC_main_user_fill_color="@color/main_fill_color"
+            app:RC_sub_user_color="@color/sub_color"
+            app:RC_sub_user_fill_color="@color/sub_fill_color"
+            app:RC_text_color="@android:color/white"/>
     </RelativeLayout>
 
 </FrameLayout>

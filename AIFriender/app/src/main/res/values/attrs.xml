@@ -8,4 +8,12 @@
         <attr name="agreeableness_color" format="color"/>
         <attr name="emotional_range_color" format="color"/>
     </declare-styleable>
+
+    <declare-styleable name="RadarChartView">
+        <attr name="RC_main_user_color" format="color"/>
+        <attr name="RC_sub_user_color" format="color"/>
+        <attr name="RC_main_user_fill_color" format="color"/>
+        <attr name="RC_sub_user_fill_color" format="color"/>
+        <attr name="RC_text_color" format="color"/>
+    </declare-styleable>
 </resources>

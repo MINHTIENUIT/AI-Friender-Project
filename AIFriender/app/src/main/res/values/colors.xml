@@ -5,4 +5,9 @@
     <color name="colorAccent">#1E3757</color>
     <color name="background">#1E3757</color>
     <color name="background_button">#0076CE</color>
+    <color name="main_color">#BE8C6B</color>
+    <color name="main_fill_color">#CEB96C</color>
+    <color name="sub_color">#2C7E15</color>
+    <color name="sub_fill_color">#7395AC</color>
+    <color name="text_color">#FFFFFF</color>
 </resources>

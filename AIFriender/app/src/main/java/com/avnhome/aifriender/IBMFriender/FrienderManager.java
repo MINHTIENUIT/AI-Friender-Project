@@ -16,7 +16,8 @@ public class FrienderManager{
 
     public static void getUser(TwitterSession session, final OnLoadedListener listener){
         IBMService service = IBMFrienderApiClient.getIBMService();
-        service.getUser("@"+session.getUserName())
+//        service.getUser("@"+session.getUserName())
+        service.getUser("@realDonaldTrump")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<List<User>>() {
@@ -28,7 +29,7 @@ public class FrienderManager{
                   @Override
                   public void onSuccess(List<User> users) {
                         if (!users.isEmpty()){
-                            listener.onComplete(users.get(0));
+                            listener.onComplete(users.get(2));
                         }else{
                             listener.onFailure(new Throwable("User dose not available"));
                             listener.onComplete(null);
