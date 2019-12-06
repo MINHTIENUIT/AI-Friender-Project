@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="DescriptionView">
-        <attr name="showText" format="boolean" />
-        <attr name="labelPosition" format="enum">
-            <enum name="left" value="0"/>
-            <enum name="right" value="1"/>
-        </attr>
+    <declare-styleable name="DescriptionChartView">
+        <attr name="text_color" format="color"/>
+        <attr name="openness_color" format="color"/>
+        <attr name="conscientiousness_color" format="color"/>
+        <attr name="extraversion_color" format="color"/>
+        <attr name="agreeableness_color" format="color"/>
+        <attr name="emotional_range_color" format="color"/>
     </declare-styleable>
 </resources>

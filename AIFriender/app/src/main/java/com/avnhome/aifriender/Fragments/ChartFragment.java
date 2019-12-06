@@ -3,6 +3,7 @@ package com.avnhome.aifriender.Fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -10,7 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.avnhome.aifriender.Model.PersonalityOfChart;
+import com.avnhome.aifriender.Model.User;
 import com.avnhome.aifriender.R;
+import com.avnhome.aifriender.Views.RadarChartView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,6 +25,7 @@ public class ChartFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String PERSONALITY_PARAM1 = "PERSONALITY";
 
+    private RadarChartView radarChartView;
     // TODO: Rename and change types of parameters
     private PersonalityOfChart personality;
 
@@ -58,7 +62,23 @@ public class ChartFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_chart, container, false);
+        View view = inflater.inflate(R.layout.fragment_chart, container, false);
+        radarChartView = view.findViewById(R.id.radar_char);
+        return view;
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        PersonalityOfChart p1 = new PersonalityOfChart(50,40,30,20,10);
+        PersonalityOfChart p2 = new PersonalityOfChart(10,20,30,40,50);
+        User user1 = new User.UserBuilder("Jack").withPersonality(p1).build();
+        User user2 = new User.UserBuilder("Alita").withPersonality(p2).build();
+        try {
+            radarChartView.setUserForChart(user1,user2);
+            radarChartView.invalidate();
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+    }
 }

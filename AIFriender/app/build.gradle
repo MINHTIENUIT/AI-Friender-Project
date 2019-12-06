@@ -76,6 +76,7 @@ dependencies {
     //avatar view use picasso
     implementation 'agency.tango.android:avatar-view:0.0.2'
     implementation 'agency.tango.android:avatar-view-picasso:0.0.2'
+    implementation 'org.jetbrains:annotations-java5:15.0'
 
 
 }

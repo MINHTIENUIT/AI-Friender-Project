@@ -15,11 +15,12 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background">
-        <ImageView
+        android:background="@color/background"
+        android:padding="10dp">
+        <com.avnhome.aifriender.Views.RadarChartView
+            android:id="@+id/radar_char"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/example_chart_fragment" />
+            android:layout_height="match_parent"/>
     </RelativeLayout>
 
 </FrameLayout>

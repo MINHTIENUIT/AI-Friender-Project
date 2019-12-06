@@ -3,6 +3,8 @@ package com.avnhome.aifriender.Model;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.annotation.Generated;
 
@@ -73,6 +75,10 @@ public class PersonalityOfChart implements Serializable {
 
 	public void setExtraversion(double extraversion) {
 		this.extraversion = extraversion;
+	}
+
+	public List<Double> getPersonalities(){
+		return Arrays.asList(openness,agreeableness,neuroticism,conscientiousness,extraversion);
 	}
 
 	@Override

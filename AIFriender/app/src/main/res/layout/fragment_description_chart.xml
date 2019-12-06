@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.DescriptionChartFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -11,17 +12,17 @@
         android:layout_height="match_parent"
         android:background="@color/background"
         android:orientation="vertical">
-        <ImageView
+        <com.avnhome.aifriender.Views.DescriptionChartView
+            android:id="@+id/desc_chart_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/example_description_fragment"/>
-        <LinearLayout
-            android:layout_width="50dp"
-            android:layout_height="5dp"
-            android:background="@color/tw__composer_white"
-            android:layout_gravity="center">
+            android:layout_height="match_parent"
+            app:text_color="@android:color/white"
+            app:openness_color="@android:color/holo_green_light"
+            app:agreeableness_color="@android:color/holo_blue_light"
+            app:conscientiousness_color="@android:color/holo_orange_light"
+            app:emotional_range_color="@android:color/holo_purple"
+            app:extraversion_color="@android:color/holo_orange_dark"/>
 
-        </LinearLayout>
     </LinearLayout>
 
 </FrameLayout>

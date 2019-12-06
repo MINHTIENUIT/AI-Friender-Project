@@ -3,6 +3,7 @@ package com.avnhome.aifriender.Fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -11,6 +12,9 @@ import android.view.ViewGroup;
 
 import com.avnhome.aifriender.Model.PersonalityOfChart;
 import com.avnhome.aifriender.R;
+import com.avnhome.aifriender.Views.DescriptionChartView;
+
+import java.util.Arrays;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,6 +28,8 @@ public class DescriptionChartFragment extends Fragment {
 
     // TODO: Rename and change types of parameters
     private PersonalityOfChart personality;
+
+    private DescriptionChartView descChartView;
 
 
     public DescriptionChartFragment() {
@@ -58,6 +64,15 @@ public class DescriptionChartFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_description_chart, container, false);
+        View view = inflater.inflate(R.layout.fragment_description_chart, container, false);
+        descChartView = view.findViewById(R.id.desc_chart_view);
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        descChartView.setPercents(personality.getPersonalities());
+        descChartView.setPercents(Arrays.asList(10d,20d,30d,40d,50d));
     }
 }
