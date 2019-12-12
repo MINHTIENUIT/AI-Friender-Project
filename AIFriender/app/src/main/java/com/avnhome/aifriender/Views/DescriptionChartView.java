@@ -53,16 +53,20 @@ public class DescriptionChartView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        float pointRaw1 = canvas.getWidth()/3;
-        float align = pointRaw1/2;
-        float pointRaw2 = canvas.getWidth()/2;
-        float align2 = pointRaw2/2;
+        float pointRow1 = canvas.getWidth()/3;
+        float align = pointRow1/2;
+        float pointRow2 = canvas.getWidth()/2;
+        float align2 = pointRow2/2;
 
-        float heightAlign = canvas.getHeight()/3;
-
-        if (percents.size() != 5){
-            return;
+        boolean heighAlignCenter = typedArray.getBoolean(R.styleable.DescriptionChartView_layout_alignCenter, false);
+        float heightAlignRow1 = 100;
+        float heightAlignRow2 = 300;
+        if (heighAlignCenter) {
+            heightAlignRow1 = canvas.getHeight() / 3;
+            heightAlignRow2 = heightAlignRow1 * 2;
         }
+
+
         Iterator<Map.Entry<String, Double>> iterator = percents.entrySet().iterator();
 
         int opennessColor = typedArray.getColor(R.styleable.DescriptionChartView_openness_color,Color.RED);
@@ -71,12 +75,12 @@ public class DescriptionChartView extends View {
         int agreeablenessColor = typedArray.getColor(R.styleable.DescriptionChartView_agreeableness_color,Color.BLACK);
         int emotionalRangeColor = typedArray.getColor(R.styleable.DescriptionChartView_emotional_range_color,Color.MAGENTA);
 
-        drawCircle(canvas, pointRaw1 - align, heightAlign, opennessColor, iterator.next());
-        drawCircle(canvas, pointRaw1 * 2 - align, heightAlign, agreeablenessColor, iterator.next());
-        drawCircle(canvas, pointRaw1 * 3 - align, heightAlign, emotionalRangeColor, iterator.next());
+        drawCircle(canvas, pointRow1 - align, heightAlignRow1, opennessColor, iterator.next());
+        drawCircle(canvas, pointRow1 * 2 - align, heightAlignRow1, agreeablenessColor, iterator.next());
+        drawCircle(canvas, pointRow1 * 3 - align, heightAlignRow1, emotionalRangeColor, iterator.next());
 
-        drawCircle(canvas, pointRaw2 - align2, heightAlign * 2, conscientiousnessColor, iterator.next());
-        drawCircle(canvas, pointRaw2 * 2 - align2, heightAlign * 2, extraversionColor, iterator.next());
+        drawCircle(canvas, pointRow2 - align2, heightAlignRow2, conscientiousnessColor, iterator.next());
+        drawCircle(canvas, pointRow2 * 2 - align2, heightAlignRow2, extraversionColor, iterator.next());
 
     }
 

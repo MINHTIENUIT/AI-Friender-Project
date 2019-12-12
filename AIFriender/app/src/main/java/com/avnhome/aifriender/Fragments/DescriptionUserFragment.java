@@ -9,12 +9,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.avnhome.aifriender.Interfaces.OnLoadedListener;
 import com.avnhome.aifriender.Model.User;
 import com.avnhome.aifriender.R;
 import com.avnhome.aifriender.Twitter.CustomTwitterApiClient;
 import com.avnhome.aifriender.Twitter.TwitterManager;
+import com.squareup.picasso.Picasso;
 import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterSession;
 
@@ -38,8 +40,11 @@ public class DescriptionUserFragment extends Fragment implements OnLoadedListene
 
     // TODO: Rename and change types of parameters
     private User user;
-    AvatarView avatarView;
-    IImageLoader imageLoader;
+    private AvatarView avatarView;
+    private IImageLoader imageLoader;
+    private ImageView backgroundView;
+    private View descDetail;
+
 
     public DescriptionUserFragment() {
         // Required empty public constructor
@@ -89,12 +94,19 @@ public class DescriptionUserFragment extends Fragment implements OnLoadedListene
 
     private void findViewByIds(View view){
         avatarView = view.findViewById(R.id.avatar_iv);
+        backgroundView = view.findViewById(R.id.background_iv);
+        descDetail = view.findViewById(R.id.desc_detail);
     }
+
+    public void setVisiableDescDetail(int visibility){
+        descDetail.setVisibility(visibility);
+    };
 
     @Override
     public void onComplete(com.twitter.sdk.android.core.models.User user) {
         imageLoader = new PicassoLoader();
         imageLoader.loadImage(avatarView, user.profileImageUrlHttps,this.user.getTwitterId());
+        Picasso.with(getContext()).load(user.profileBannerUrl).into(backgroundView);
     }
 
     @Override

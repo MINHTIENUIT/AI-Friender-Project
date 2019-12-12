@@ -75,7 +75,7 @@ public class ChartFragment extends Fragment {
         User user1 = new User.UserBuilder("Jack").withPersonality(p1).build();
         User user2 = new User.UserBuilder("Alita").withPersonality(p2).build();
         try {
-            radarChartView.setUserForChart(user, user1);
+            radarChartView.setUserForChart(user, null);
             radarChartView.invalidate();
         } catch (Throwable throwable) {
             throwable.printStackTrace();

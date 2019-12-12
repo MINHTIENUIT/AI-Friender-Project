@@ -7,72 +7,103 @@
     tools:context=".Fragments.DescriptionUserFragment"
     android:background="@color/background">
 
-    <ScrollView
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/margin"
+        app:cardCornerRadius="@dimen/margin"
+        app:cardElevation="5dp">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_margin="@dimen/margin">
-                <agency.tango.android.avatarview.views.AvatarView
-                    android:id="@+id/avatar_iv"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginEnd="10dp"
-                    app:av_border_color="@android:color/white"
-                    app:av_border_width="2dp"
-                    app:av_text_size_percentage="35"/>
+                android:orientation="vertical"
+                android:visibility="visible"
+                android:layout_weight="1">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_weight="1">
+                    <ImageView
+                        android:id="@+id/background_iv"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"/>
+                    <agency.tango.android.avatarview.views.AvatarView
+                        android:id="@+id/avatar_iv"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_centerInParent="true"
+                        app:av_border_color="@android:color/white"
+                        app:av_border_width="2dp"
+                        app:av_text_size_percentage="35"/>
+                </RelativeLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="center_vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/tw__composer_white"
-                        android:text="Twitter ID: "/>
-                    <TextView
-                        android:layout_width="wrap_content"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:hint="Twitter ID"
+                        android:layout_weight="1">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="DonaldTrump"
+                            android:enabled="false"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/tw__composer_white"
-                        android:text="Name: "/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/tw__composer_white"
-                        android:text="Email: "/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/tw__composer_white"
-                        android:text="Birthday: "/>
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:hint="Twitter ID"
+                        android:layout_weight="1">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="DonaldTrump"
+                            android:enabled="false"/>
+                    </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
             </LinearLayout>
-            <LinearLayout
+
+            <ScrollView
+                android:id="@+id/desc_detail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
-                <TextView
+                android:visibility="visible"
+                android:layout_weight="1">
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@android:color/white"
-                    android:textAlignment="center"
-                    android:text="About You"
-                    android:textSize="20sp"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/white"
-                    android:textAlignment="center"
-                    android:text="@string/test_description"/>
-            </LinearLayout>
+                    android:orientation="vertical"
+                    android:visibility="visible">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:text="About You"
+                        android:textSize="20sp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:text="@string/test_description"/>
+                </LinearLayout>
+            </ScrollView>
         </LinearLayout>
-    </ScrollView>
+    </androidx.cardview.widget.CardView>
+
+
 
 </FrameLayout>

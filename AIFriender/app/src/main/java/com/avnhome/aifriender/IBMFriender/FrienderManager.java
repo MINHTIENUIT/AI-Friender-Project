@@ -1,9 +1,9 @@
 package com.avnhome.aifriender.IBMFriender;
 
 import com.avnhome.aifriender.Interfaces.OnLoadedListener;
+import com.avnhome.aifriender.Model.PersonalityOfChart;
 import com.avnhome.aifriender.Model.User;
 import com.avnhome.aifriender.Services.IBMService;
-import com.twitter.sdk.android.core.TwitterSession;
 
 import java.util.List;
 
@@ -11,13 +11,16 @@ import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class FrienderManager{
 
-    public static void getUser(TwitterSession session, final OnLoadedListener listener){
+    public static void getUser(String twitterID, final OnLoadedListener listener){
         IBMService service = IBMFrienderApiClient.getIBMService();
 //        service.getUser("@"+session.getUserName())
-        service.getUser("@realDonaldTrump")
+        service.getUser(twitterID)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<List<User>>() {
@@ -29,7 +32,7 @@ public class FrienderManager{
                   @Override
                   public void onSuccess(List<User> users) {
                         if (!users.isEmpty()){
-                            listener.onComplete(users.get(2));
+                            listener.onComplete(users.get(8));
                         }else{
                             listener.onFailure(new Throwable("User dose not available"));
                             listener.onComplete(null);
@@ -41,5 +44,24 @@ public class FrienderManager{
                         listener.onFailure(e);
                   }
               });
+    }
+
+    public static void getPersonality(String twitterId, String id, final OnLoadedListener<PersonalityOfChart> onLoadedListener){
+        IBMService service = IBMFrienderApiClient.getIBMService();
+        service.getPersonality(twitterId,id).enqueue(new Callback<PersonalityOfChart>() {
+            @Override
+            public void onResponse(Call<PersonalityOfChart> call, Response<PersonalityOfChart> response) {
+                if (response.isSuccessful() && response.body() != null){
+                    onLoadedListener.onComplete(response.body());
+                }else{
+                    onLoadedListener.onFailure(new Throwable("Get Personality: Failed"));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PersonalityOfChart> call, Throwable t) {
+                onLoadedListener.onFailure(t);
+            }
+        });
     }
 }

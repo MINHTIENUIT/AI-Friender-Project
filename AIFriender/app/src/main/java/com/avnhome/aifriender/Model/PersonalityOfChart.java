@@ -12,19 +12,19 @@ import javax.annotation.Generated;
 public class PersonalityOfChart implements Serializable {
 
 	@SerializedName("big5_openness")
-	protected double openness;
+	protected double openness = -1;
 
 	@SerializedName("big5_agreeableness")
-	protected double agreeableness;
+	protected double agreeableness = -1;
 
 	@SerializedName("big5_neuroticism")
-	protected double neuroticism;
+	protected double neuroticism = -1;
 
 	@SerializedName("big5_conscientiousness")
-	protected double conscientiousness;
+	protected double conscientiousness = -1;
 
 	@SerializedName("big5_extraversion")
-	protected double extraversion;
+	protected double extraversion = -1;
 
 	public PersonalityOfChart() {
 	}

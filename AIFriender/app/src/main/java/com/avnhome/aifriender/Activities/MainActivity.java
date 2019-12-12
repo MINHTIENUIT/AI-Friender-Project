@@ -8,6 +8,7 @@ import com.avnhome.aifriender.Fragments.DescriptionChartFragment;
 import com.avnhome.aifriender.Fragments.DescriptionUserFragment;
 import com.avnhome.aifriender.IBMFriender.FrienderManager;
 import com.avnhome.aifriender.Interfaces.OnLoadedListener;
+import com.avnhome.aifriender.Model.PersonalityOfChart;
 import com.avnhome.aifriender.Model.User;
 import com.avnhome.aifriender.R;
 import com.avnhome.aifriender.Twitter.CustomTwitterApiClient;
@@ -38,21 +39,63 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements SlidingUpPanelLayout.PanelSlideListener,
-        View.OnClickListener, OnLoadedListener<User> {
+        View.OnClickListener{
     private Button logoutBtn;
     private FirebaseAuth auth;
     private SessionManager<TwitterSession> sessionManager;
     private TwitterSession twitterSession;
 
 
+    private User user;
+    private int backButtonCount = 0;
+
+    private OnLoadedListener<User> onLoadedUserListener = new OnLoadedListener<User>() {
+        @Override
+        public void onComplete(User user) {
+            MainActivity.this.user = user;
+            if (user == null){
+                Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
+                startActivity(intent);
+                finish();
+            }else{
+                if (user.getPersonalities().get(0) == -100){
+                    FrienderManager.getPersonality("@realDonaldTrump", user.getId(), onLoadedPersonalityListener);
+                }else {
+                    System.out.println("TIEN: " + user.getPersonalities().get(0));
+                    loadChartFragment();
+                }
+            }
+        }
+
+        @Override
+        public void onFailure(Throwable t) {
+            Log.w(getPackageName(), "onFailure: Load User", t);
+        }
+    };
+
+    private OnLoadedListener<PersonalityOfChart> onLoadedPersonalityListener = new OnLoadedListener<PersonalityOfChart>() {
+        @Override
+        public void onComplete(PersonalityOfChart personality) {
+            user = new User.UserBuilder(user)
+                    .withPersonality(personality)
+                    .build();
+            loadChartFragment();
+        }
+
+        @Override
+        public void onFailure(Throwable t) {
+            Log.w(getPackageName(), "onFailure: Load Personality", t);
+        }
+    };
+
+
     private SlidingUpPanelLayout mLayout;
+    private View contentUser;
+    private View contentDescChart;
 
     private ChartFragment chartFragment;
     private DescriptionChartFragment descriptionChartFragment;
     private DescriptionUserFragment descriptionUserFragment;
-
-    private User user;
-    private int backButtonCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,6 +165,9 @@ public class MainActivity extends AppCompatActivity implements SlidingUpPanelLay
     private void findViewByIds(){
         logoutBtn = findViewById(R.id.logout_btn);
         mLayout = findViewById(R.id.sliding_layout);
+        contentUser = findViewById(R.id.content_description_User);
+        contentUser.setOnClickListener(this);
+        contentDescChart = findViewById(R.id.content_description_chart);
     }
 
     private void updateLoginUI(){
@@ -137,7 +183,7 @@ public class MainActivity extends AppCompatActivity implements SlidingUpPanelLay
         if (currentUser == null){
             updateLoginUI();
         } else
-            FrienderManager.getUser(twitterSession,this);
+            FrienderManager.getUser("@realDonaldTrump",onLoadedUserListener);
     }
 
     @Override
@@ -182,32 +228,25 @@ public class MainActivity extends AppCompatActivity implements SlidingUpPanelLay
 
     @Override
     public void onClick(View view) {
-        mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+        switch (view.getId()){
+            case R.id.content_description_chart:
+                mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                break;
+            case R.id.content_description_User:
+                contentDescChart.setVisibility(View.GONE);
+                descriptionUserFragment.setVisiableDescDetail(View.VISIBLE);
+                break;
+        }
     }
 
     @Override
     public void onPanelSlide(View panel, float slideOffset) {
+        contentDescChart.setVisibility(View.VISIBLE);
+        descriptionUserFragment.setVisiableDescDetail(View.GONE);
     }
 
     @Override
     public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState, SlidingUpPanelLayout.PanelState newState) {
 
-    }
-
-    @Override
-    public void onComplete(User user) {
-        this.user = user;
-        if (user == null){
-            Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
-            startActivity(intent);
-            finish();
-        }else{
-            loadChartFragment();
-        }
-    }
-
-    @Override
-    public void onFailure(Throwable t) {
-        Log.w(getPackageName(), "onFailure: Load User", t);
     }
 }

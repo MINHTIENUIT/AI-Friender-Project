@@ -2,10 +2,7 @@ package com.avnhome.aifriender.Views;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Path;
 import android.util.AttributeSet;
 
 import com.avnhome.aifriender.Model.User;

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="DescriptionChartView">
+        <attr name="layout_alignCenter" format="boolean"/>
         <attr name="text_color" format="color"/>
         <attr name="openness_color" format="color"/>
         <attr name="conscientiousness_color" format="color"/>

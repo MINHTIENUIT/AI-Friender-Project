@@ -141,6 +141,17 @@ public class User extends PersonalityOfChart implements Serializable {
 		public UserBuilder(String twitterId){
 			this.twitterId = twitterId;
 		}
+		public UserBuilder(User user){
+			this.twitterId = user.twitterId;
+			this.id = user.id;
+			this.phoneNumber = user.phoneNumber;
+			this.dob = user.dob;
+			this.name = user.name;
+			this.age = user.age;
+			this.userName = user.userName;
+			this.email = user.email;
+			personality = user;
+		}
 
 		public UserBuilder withId(String id){
 			this.id = id;

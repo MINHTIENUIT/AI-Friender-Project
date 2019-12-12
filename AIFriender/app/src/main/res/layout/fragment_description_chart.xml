@@ -16,6 +16,7 @@
             android:id="@+id/desc_chart_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:layout_alignCenter="false"
             app:text_color="@android:color/white"
             app:openness_color="@android:color/holo_green_light"
             app:agreeableness_color="@android:color/holo_blue_light"
