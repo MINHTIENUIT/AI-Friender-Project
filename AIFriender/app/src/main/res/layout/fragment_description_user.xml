@@ -58,6 +58,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
+                            android:focusableInTouchMode="false"
                             android:text="DonaldTrump"
                             android:enabled="false"/>
                     </com.google.android.material.textfield.TextInputLayout>
@@ -71,6 +72,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
+                            android:focusableInTouchMode="false"
                             android:text="DonaldTrump"
                             android:enabled="false"/>
                     </com.google.android.material.textfield.TextInputLayout>

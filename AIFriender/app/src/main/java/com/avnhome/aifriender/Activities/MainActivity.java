@@ -30,10 +30,10 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements SlidingUpPanelLayout.PanelSlideListener,
+public class MainActivity extends AppCompatActivity
+        implements SlidingUpPanelLayout.PanelSlideListener,
         View.OnClickListener{
 
-    public static final String USER = "user";
     private Button logoutBtn;
     private Button findFriendBtn;
 
@@ -230,7 +230,7 @@ public class MainActivity extends AppCompatActivity implements SlidingUpPanelLay
                 break;
             case R.id.find_friend_btn:
                 Intent intent = new Intent(MainActivity.this, ListFriendActivity.class);
-                intent.putExtra(ListFriendActivity.USER_ID, user.getId());
+                intent.putExtra(ListFriendActivity.USER_ID, user);
                 startActivity(intent);
                 break;
         }

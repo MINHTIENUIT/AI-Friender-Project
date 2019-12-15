@@ -21,12 +21,17 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendViewHolder> {
+public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendViewHolder>{
 
+    private static OnItemClickListener clickListener;
     private List<User> userList;
 
     public FriendAdapter(List<User> userList) {
         this.userList = userList;
+    }
+
+    public static void setClickListener(OnItemClickListener clickListener) {
+        FriendAdapter.clickListener = clickListener;
     }
 
     @NonNull
@@ -34,7 +39,6 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendView
     public FriendAdapter.FriendViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View friendView = inflater.inflate(R.layout.item_friend,parent,false);
-
         return new FriendViewHolder(friendView, parent.getContext());
     }
 
@@ -48,7 +52,8 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendView
         return userList.size();
     }
 
-    public class FriendViewHolder extends RecyclerView.ViewHolder implements OnLoadedListener<com.twitter.sdk.android.core.models.User> {
+    public class FriendViewHolder extends RecyclerView.ViewHolder implements OnLoadedListener<com.twitter.sdk.android.core.models.User>,
+    View.OnClickListener, View.OnLongClickListener{
         private User user;
         private ImageView avatarFriend;
         private TextView nameFriend;
@@ -58,6 +63,9 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendView
 
         public FriendViewHolder(@NonNull View itemView, Context context) {
             super(itemView);
+            itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
+
             this.context = context;
             avatarFriend = itemView.findViewById(R.id.avatar_fr_iv);
             nameFriend = itemView.findViewById(R.id.name_friend);
@@ -87,5 +95,23 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendView
             Log.e("FriendAdapter", "onBind: ", t);
             Toast.makeText(context, "Load Avatar Friend: Failed", Toast.LENGTH_SHORT);
         }
+
+        @Override
+        public void onClick(View v) {
+            clickListener.onItemClick(getAdapterPosition(), v);
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            clickListener.onItemLongClick(getAdapterPosition(), v);
+            return false;
+        }
+    }
+
+
+
+    public interface OnItemClickListener {
+        void onItemClick(int position, View v);
+        void onItemLongClick(int position, View v);
     }
 }

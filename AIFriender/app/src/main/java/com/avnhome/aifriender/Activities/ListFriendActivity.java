@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.avnhome.aifriender.Adapter.FriendAdapter;
 import com.avnhome.aifriender.IBMFriender.FrienderManager;
@@ -16,11 +18,12 @@ import com.avnhome.aifriender.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListFriendActivity extends AppCompatActivity implements OnLoadedListener<List<User>> {
+public class ListFriendActivity extends AppCompatActivity implements OnLoadedListener<List<User>>,
+FriendAdapter.OnItemClickListener{
 
     public static final String USER_ID = "USER_ID";
 
-    private String userId;
+    private User user;
 
     ArrayList<User> friends = new ArrayList<>();
 
@@ -31,12 +34,12 @@ public class ListFriendActivity extends AppCompatActivity implements OnLoadedLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_friend);
 
-        userId = getIntent().getStringExtra(USER_ID);
+        user = (User) getIntent().getSerializableExtra(USER_ID);
 
         findViewByIds();
 
-        Log.i("ListFriendActivity", "onCreate: User Id " + userId);
-        FrienderManager.getFriend(userId, this);
+        Log.i("ListFriendActivity", "onCreate: User Id " + user.getId());
+        FrienderManager.getFriend(user.getId(), this);
 
     }
 
@@ -46,7 +49,10 @@ public class ListFriendActivity extends AppCompatActivity implements OnLoadedLis
 
     @Override
     public void onComplete(List<User> users) {
-        FriendAdapter adapter = new FriendAdapter(users);
+        friends.clear();
+        friends.addAll(users);
+        FriendAdapter.setClickListener(this);
+        FriendAdapter adapter = new FriendAdapter(friends);
         rvFriend.setAdapter(adapter);
         rvFriend.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -54,5 +60,18 @@ public class ListFriendActivity extends AppCompatActivity implements OnLoadedLis
     @Override
     public void onFailure(Throwable t) {
         Log.e(getLocalClassName(), "onFailure: Load Friend", t);
+    }
+
+    @Override
+    public void onItemClick(int position, View v) {
+        Intent intent = new Intent(ListFriendActivity.this, CompareActivity.class);
+        intent.putExtra(CompareActivity.USER, user);
+        intent.putExtra(CompareActivity.FRIEND, friends.get(position));
+        startActivity(intent);
+    }
+
+    @Override
+    public void onItemLongClick(int position, View v) {
+
     }
 }
