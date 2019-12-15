@@ -6,6 +6,7 @@ import com.avnhome.aifriender.Interfaces.OnLoadedListener;
 import com.twitter.sdk.android.core.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 import com.twitter.sdk.android.core.TwitterConfig;
+import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.models.User;
 
@@ -25,7 +26,10 @@ public class TwitterManager {
         Twitter.initialize(twitterConfig);
     }
 
-    public static void getLookupUser(TwitterSession session, String twitterID, final OnLoadedListener<User> listener){
+    public static void getLookupUser(String twitterID, final OnLoadedListener<User> listener){
+        TwitterSession session = TwitterCore.getInstance().getSessionManager().getActiveSession();
+        if (session == null) return;
+
         final String screen_name = twitterID.replace("@","");
         Call<List<User>> call = new CustomTwitterApiClient(session).getTwitterService().lookupUser(screen_name);
         call.enqueue(new Callback<List<User>>() {

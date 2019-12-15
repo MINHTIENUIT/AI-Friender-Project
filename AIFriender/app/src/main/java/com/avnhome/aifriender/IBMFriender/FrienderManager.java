@@ -64,4 +64,23 @@ public class FrienderManager{
             }
         });
     }
+
+    public static void getFriend(String userId, final OnLoadedListener<List<User>> onLoadedListener){
+        IBMService service = IBMFrienderApiClient.getIBMService();
+        service.getColsest(userId).enqueue(new Callback<List<User>>() {
+            @Override
+            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                if (response.isSuccessful() && response.body() != null && !response.body().isEmpty()){
+                    onLoadedListener.onComplete(response.body());
+                }else{
+                    onLoadedListener.onFailure(new Throwable("Load Closest: failed"));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<User>> call, Throwable t) {
+                onLoadedListener.onFailure(t);
+            }
+        });
+    }
 }

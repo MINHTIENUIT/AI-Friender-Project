@@ -11,7 +11,6 @@ import com.avnhome.aifriender.Interfaces.OnLoadedListener;
 import com.avnhome.aifriender.Model.PersonalityOfChart;
 import com.avnhome.aifriender.Model.User;
 import com.avnhome.aifriender.R;
-import com.avnhome.aifriender.Twitter.CustomTwitterApiClient;
 import com.avnhome.aifriender.Twitter.TwitterManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -31,16 +30,13 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.Toast;
 
-import java.io.IOException;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class MainActivity extends AppCompatActivity implements SlidingUpPanelLayout.PanelSlideListener,
         View.OnClickListener{
+
+    public static final String USER = "user";
     private Button logoutBtn;
+    private Button findFriendBtn;
+
     private FirebaseAuth auth;
     private SessionManager<TwitterSession> sessionManager;
     private TwitterSession twitterSession;
@@ -113,22 +109,6 @@ public class MainActivity extends AppCompatActivity implements SlidingUpPanelLay
 
         findViewByIds();
 
-        mLayout.addPanelSlideListener(this);
-        mLayout.setFadeOnClickListener(this);
-
-        logoutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (twitterSession != null){
-                    sessionManager.clearActiveSession();
-                }
-
-                auth.signOut();
-                updateLoginUI();
-
-            }
-        });
-
 
 //        FloatingActionButton fab = findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
@@ -164,7 +144,12 @@ public class MainActivity extends AppCompatActivity implements SlidingUpPanelLay
 
     private void findViewByIds(){
         logoutBtn = findViewById(R.id.logout_btn);
+        logoutBtn.setOnClickListener(this);
+        findFriendBtn = findViewById(R.id.find_friend_btn);
+        findFriendBtn.setOnClickListener(this);
         mLayout = findViewById(R.id.sliding_layout);
+        mLayout.addPanelSlideListener(this);
+        mLayout.setFadeOnClickListener(this);
         contentUser = findViewById(R.id.content_description_User);
         contentUser.setOnClickListener(this);
         contentDescChart = findViewById(R.id.content_description_chart);
@@ -215,7 +200,7 @@ public class MainActivity extends AppCompatActivity implements SlidingUpPanelLay
     }
 
     public void loadChartFragment(){
-        chartFragment = ChartFragment.newInstance(user);
+        chartFragment = ChartFragment.newInstance(user, null);
         descriptionChartFragment = DescriptionChartFragment.newInstance(user);
         descriptionUserFragment = DescriptionUserFragment.newInstance(user);
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -235,6 +220,18 @@ public class MainActivity extends AppCompatActivity implements SlidingUpPanelLay
             case R.id.content_description_User:
                 contentDescChart.setVisibility(View.GONE);
                 descriptionUserFragment.setVisiableDescDetail(View.VISIBLE);
+                break;
+            case R.id.logout_btn:
+                if (twitterSession != null){
+                    sessionManager.clearActiveSession();
+                }
+                auth.signOut();
+                updateLoginUI();
+                break;
+            case R.id.find_friend_btn:
+                Intent intent = new Intent(MainActivity.this, ListFriendActivity.class);
+                intent.putExtra(ListFriendActivity.USER_ID, user.getId());
+                startActivity(intent);
                 break;
         }
     }

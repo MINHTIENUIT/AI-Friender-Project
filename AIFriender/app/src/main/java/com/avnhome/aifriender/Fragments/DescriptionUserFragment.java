@@ -87,8 +87,7 @@ public class DescriptionUserFragment extends Fragment implements OnLoadedListene
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if (user != null){
-            TwitterManager.getLookupUser(TwitterCore.getInstance().getSessionManager().getActiveSession()
-            ,user.getTwitterId(),this);
+            TwitterManager.getLookupUser(user.getTwitterId(),this);
         }
     }
 
