@@ -9,7 +9,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.avnhome.aifriender.Fragments.ChartFragment;
-import com.avnhome.aifriender.Fragments.DescriptionChartFragment;
+import com.avnhome.aifriender.Fragments.CompareFragment;
+import com.avnhome.aifriender.Fragments.DescriptionCompareFragment;
 import com.avnhome.aifriender.Fragments.DescriptionUserFragment;
 import com.avnhome.aifriender.Model.User;
 import com.avnhome.aifriender.R;
@@ -29,7 +30,7 @@ public class CompareActivity extends AppCompatActivity implements SlidingUpPanel
     public static final String FRIEND = "friend";
 
     private Button logoutBtn;
-    private Button findFriendBtn;
+    private Button addFriendBtn;
 
     private FirebaseAuth auth;
     private SessionManager<TwitterSession> sessionManager;
@@ -40,8 +41,9 @@ public class CompareActivity extends AppCompatActivity implements SlidingUpPanel
     private View contentDescChart;
 
     private ChartFragment chartFragment;
-    private DescriptionChartFragment descriptionChartFragment;
+    private CompareFragment compareFragment;
     private DescriptionUserFragment descriptionUserFragment;
+    private DescriptionCompareFragment descriptionCompareFragment;
 
     private User user;
     private User friend;
@@ -70,8 +72,9 @@ public class CompareActivity extends AppCompatActivity implements SlidingUpPanel
     private void findViewByIds(){
         logoutBtn = findViewById(R.id.logout_btn);
         logoutBtn.setOnClickListener(this);
-        findFriendBtn = findViewById(R.id.find_friend_btn);
-        findFriendBtn.setOnClickListener(this);
+        addFriendBtn = findViewById(R.id.find_add_friend_btn);
+        addFriendBtn.setText(R.string.add_friend_button);
+        addFriendBtn.setOnClickListener(this);
         mLayout = findViewById(R.id.sliding_layout);
         mLayout.addPanelSlideListener(this);
         mLayout.setFadeOnClickListener(this);
@@ -82,13 +85,13 @@ public class CompareActivity extends AppCompatActivity implements SlidingUpPanel
 
     public void loadChartFragment(){
         chartFragment = ChartFragment.newInstance(user, friend);
-        descriptionChartFragment = DescriptionChartFragment.newInstance(user);
-        descriptionUserFragment = DescriptionUserFragment.newInstance(user);
+        compareFragment = CompareFragment.newInstance(user, friend);
+        descriptionCompareFragment = DescriptionCompareFragment.newInstance("","");
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.content_chart_frg, chartFragment);
-        fragmentTransaction.add(R.id.content_description_chart, descriptionChartFragment);
-        fragmentTransaction.add(R.id.content_description_User, descriptionUserFragment);
+        fragmentTransaction.add(R.id.content_description_chart, compareFragment);
+        fragmentTransaction.add(R.id.content_description_User, descriptionCompareFragment);
         fragmentTransaction.commit();
     }
 

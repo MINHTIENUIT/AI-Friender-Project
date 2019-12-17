@@ -52,7 +52,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:hint="Twitter ID"
+                        android:hint="Name"
                         android:layout_weight="1">
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
@@ -66,14 +66,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:hint="Twitter ID"
+                        android:hint="Birthday"
                         android:layout_weight="1">
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:focusableInTouchMode="false"
-                            android:text="DonaldTrump"
+                            android:text="20 thg 12, 2019"
                             android:enabled="false"/>
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>

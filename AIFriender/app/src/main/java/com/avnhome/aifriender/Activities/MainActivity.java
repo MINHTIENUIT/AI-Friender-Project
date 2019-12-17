@@ -145,7 +145,8 @@ public class MainActivity extends AppCompatActivity
     private void findViewByIds(){
         logoutBtn = findViewById(R.id.logout_btn);
         logoutBtn.setOnClickListener(this);
-        findFriendBtn = findViewById(R.id.find_friend_btn);
+        findFriendBtn = findViewById(R.id.find_add_friend_btn);
+        findFriendBtn.setText(R.string.find_friend_button);
         findFriendBtn.setOnClickListener(this);
         mLayout = findViewById(R.id.sliding_layout);
         mLayout.addPanelSlideListener(this);
@@ -228,7 +229,7 @@ public class MainActivity extends AppCompatActivity
                 auth.signOut();
                 updateLoginUI();
                 break;
-            case R.id.find_friend_btn:
+            case R.id.find_add_friend_btn:
                 Intent intent = new Intent(MainActivity.this, ListFriendActivity.class);
                 intent.putExtra(ListFriendActivity.USER_ID, user);
                 startActivity(intent);
